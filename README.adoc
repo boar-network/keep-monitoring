@@ -20,7 +20,7 @@ The configuration includes pre-defined sets of <<Dashboards>> and <<Alerts>>.
 
 <<Alerts>> integration with <<Slack>> and <<Opsgenie>> is supported.
 
-image::./docs/img/sample.gif[Keep Dashboards Sample GIF,600,link="./docs/img/sample.gif"]
+image::./docs/img/sample.gif[Keep Dashboards Sample GIF,600,link="./docs/img/sample.gif?raw=true"]
 
 ---
 
@@ -65,9 +65,9 @@ using the `system` dropdown in the top left corner.
 
 There are also Summary dashboards available, aggregating metrics for all the configured nodes.
 
-image:./docs/img/sample-eth-balances.png[Keep Balances Dashboard Sample,300,link="./docs/img/sample-eth-balances.png"] 
-image:./docs/img/sample-keep-clients.png[Keep Clients Dashboard Sample,300,link="./docs/img/sample-keep-clients.png"]
-image:./docs/img/sample-keep-systems.png[Keep Systems Dashboard Sample,300,link="./docs/img/sample-keep-systems.png"]
+image:./docs/img/sample-eth-balances.png[Keep Balances Dashboard Sample,300,link="./docs/img/sample-eth-balances.png?raw=true"] 
+image:./docs/img/sample-keep-clients.png[Keep Clients Dashboard Sample,300,link="./docs/img/sample-keep-clients.png?raw=true"]
+image:./docs/img/sample-keep-systems.png[Keep Systems Dashboard Sample,300,link="./docs/img/sample-keep-systems.png?raw=true"]
 
 == Alerts
 
