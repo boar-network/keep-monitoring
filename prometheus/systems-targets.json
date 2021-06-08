@@ -1,0 +1,11 @@
+[
+  {
+    "labels": {
+      "job": "systems"
+    },
+    "targets": [
+      "bst-01.boar.network:9600",
+      "bst-02.boar.network:9600"
+    ]
+  }
+]

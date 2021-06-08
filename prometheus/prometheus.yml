@@ -1,0 +1,30 @@
+rule_files:
+  - alert-rules.yml
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+scrape_configs:
+  - job_name: clients
+    metrics_path: /metrics
+    scheme: http
+    file_sd_configs:
+      - files:
+          - 'clients-targets.json'
+
+  - job_name: systems
+    metrics_path: /metrics
+    scheme: http
+    file_sd_configs:
+      - files:
+          - 'systems-targets.json'
+
+  - job_name: balances
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets:
+          - balance-exporter:9015

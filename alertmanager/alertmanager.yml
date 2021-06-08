@@ -1,0 +1,65 @@
+global:
+  resolve_timeout: 1m
+
+route:
+  receiver: default
+  repeat_interval: 24h
+  group_by: ['alertname', 'instance']
+
+receivers:
+- name: default
+  slack_configs:
+  - api_url: <SLACK_API_URL>
+    channel: '#monitoring'
+    send_resolved: true
+    icon_url: https://avatars3.githubusercontent.com/u/3380462
+    title: |-
+      [{{ .Status | toUpper }}] {{ .CommonLabels.alertname }} for {{ .CommonLabels.instance }}
+    text: >-
+      {{ range .Alerts -}}
+      *Alert:* {{ .Annotations.title }}
+
+      *Description:* {{ .Annotations.description }}
+
+      *Status:* {{ .Status }}
+
+      *Labels:*
+        {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+        {{ end }}
+      {{ end }}
+  opsgenie_configs:
+  - api_key: <OPSGENIE_API_KEY>
+    api_url: <OPSGENIE_API_URL>
+    send_resolved: true
+    message: |-
+      {{ .CommonLabels.alertname }} for {{ .CommonLabels.instance }}
+    description: >-
+      {{ range .Alerts -}}
+      <b>Alert:</b> {{ .Annotations.title }}
+
+      <b>Description:</b> {{ .Annotations.description }}
+
+      <b>Status:</b> {{ .Status }}
+
+      <b>Labels:</b>
+        {{ range .Labels.SortedPairs }} • <b>{{ .Name }}:</b> {{ .Value }}
+        {{ end }}
+      {{ end }}
+    source: alertmanager
+    priority: |-
+      {{ if eq (index .Alerts 0).Labels.severity "critical" }}P1{{ else }}P3{{ end }}
+    responders:
+    - name: Administrators
+      type: team
+
+inhibit_rules:
+- target_match_re:
+    alertname: '[^(ClientDown)]'
+  source_match:
+    alertname: 'ClientDown'
+  equal: ['job', 'instance']
+- target_match_re:
+    alertname: '[^(SystemDown)]'
+  source_match:
+    alertname: 'SystemDown'
+  equal: ['job', 'instance']

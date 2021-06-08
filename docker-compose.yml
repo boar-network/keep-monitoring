@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+    prometheus:
+        container_name: prometheus
+        volumes:
+            - ./prometheus:/etc/prometheus
+        image: prom/prometheus:v2.19.0
+        restart: always
+        ## Configure extra mapping of hostnames to addresses if required.
+        # extra_hosts:
+        #     - "bst-01.boar.network:10.1.1.1"
+        #     - "bst-02.boar.network:10.1.1.2"
+    alertmanager:
+        container_name: alertmanager
+        volumes:
+            - ./alertmanager:/etc/alertmanager
+        image: prom/alertmanager:v0.20.0
+        restart: always
+    grafana:
+        container_name: grafana
+        ports:
+            - 8080:3000
+        volumes:
+            - ./grafana/data:/var/lib/grafana
+            - ./grafana/provisioning:/etc/grafana/provisioning
+        image: grafana/grafana:7.0.3
+        restart: always
+    balance-exporter:
+        container_name: balance-exporter
+        volumes:
+            - ./balance-exporter/addresses.txt:/app/addresses.txt
+        env_file:
+            - ./balance-exporter/variables.env
+        build: https://github.com/boar-network/ethexporter.git
+        restart: always

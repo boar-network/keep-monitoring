@@ -1,0 +1,1146 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": "-- Grafana --",
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 5,
+    "iteration": 1623183150002,
+    "links": [],
+    "panels": [
+        {
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null
+                    },
+                    "decimals": 2,
+                    "mappings": [],
+                    "noValue": "0",
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "orange",
+                                "value": 1
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 2
+                            },
+                            {
+                                "color": "green",
+                                "value": 5
+                            }
+                        ]
+                    },
+                    "unit": "ETH"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 26,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "fields": "",
+                    "values": false
+                }
+            },
+            "pluginVersion": "7.0.3",
+            "targets": [
+                {
+                    "expr": "label_replace(eth_balance{address=~\".*\"}, \"address_id\", \"$1\", \"address\", \"^0x([a-zA-Z0-9]{6}).*$\")",
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{name}}({{address_id}})",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Operators Accounts Balances",
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 5
+            },
+            "id": 18,
+            "panels": [],
+            "repeat": "APP_TYPE",
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "ecdsa",
+                    "value": "ecdsa"
+                }
+            },
+            "title": "$APP_TYPE",
+            "type": "row"
+        },
+        {
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null
+                    },
+                    "mappings": [
+                        {
+                            "from": "",
+                            "id": 0,
+                            "operator": "",
+                            "text": "up",
+                            "to": "",
+                            "type": 1,
+                            "value": "1"
+                        },
+                        {
+                            "from": "",
+                            "id": 1,
+                            "operator": "",
+                            "text": "down",
+                            "to": "",
+                            "type": 1,
+                            "value": "0"
+                        }
+                    ],
+                    "max": 1,
+                    "noValue": "0",
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "dark-red",
+                                "value": null
+                            },
+                            {
+                                "color": "dark-green",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 10,
+                "x": 0,
+                "y": 6
+            },
+            "id": 9,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "fields": "",
+                    "values": false
+                }
+            },
+            "pluginVersion": "7.0.3",
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "ecdsa",
+                    "value": "ecdsa"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "label_replace(up{job=\"clients\", instance=~\".*$APP_TYPE.*\"}, \"node\", \"$1-$2\", \"instance\", \"$REGEXP_INSTANCE_TO_NODE\")",
+                    "format": "time_series",
+                    "instant": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{node}}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Client Health",
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null
+                    },
+                    "displayName": "Count",
+                    "mappings": [],
+                    "min": 0,
+                    "noValue": "0",
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "orange",
+                                "value": 0
+                            },
+                            {
+                                "color": "light-yellow",
+                                "value": 3
+                            },
+                            {
+                                "color": "green",
+                                "value": 5
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 10,
+                "y": 6
+            },
+            "id": 15,
+            "options": {
+                "displayMode": "basic",
+                "orientation": "horizontal",
+                "reduceOptions": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showUnfilled": true
+            },
+            "pluginVersion": "7.0.3",
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "ecdsa",
+                    "value": "ecdsa"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "label_replace(connected_bootstrap_count{instance=~\".*$APP_TYPE.*\"}, \"node\", \"$1-$2\", \"instance\", \"$REGEXP_INSTANCE_TO_NODE\")",
+                    "format": "time_series",
+                    "instant": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{node}}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Connected Bootstraps Count",
+            "transparent": true,
+            "type": "bargauge"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 0,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 13,
+                "w": 8,
+                "x": 16,
+                "y": 6
+            },
+            "hiddenSeries": false,
+            "id": 21,
+            "legend": {
+                "alignAsTable": false,
+                "avg": false,
+                "current": false,
+                "hideEmpty": false,
+                "max": false,
+                "min": false,
+                "rightSide": false,
+                "show": false,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null as zero",
+            "options": {
+                "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "ecdsa",
+                    "value": "ecdsa"
+                }
+            },
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": true,
+            "targets": [
+                {
+                    "expr": "label_replace(connected_peers_count{instance=~\".*$APP_TYPE.*\"}, \"node\", \"$1-$2\", \"instance\", \"$REGEXP_INSTANCE_TO_NODE\")",
+                    "interval": "",
+                    "legendFormat": "{{node}}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Connected Peers History",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null
+                    },
+                    "mappings": [
+                        {
+                            "from": "",
+                            "id": 0,
+                            "operator": "",
+                            "text": "up",
+                            "to": "",
+                            "type": 1,
+                            "value": "1"
+                        },
+                        {
+                            "from": "",
+                            "id": 1,
+                            "operator": "",
+                            "text": "down",
+                            "to": "",
+                            "type": 1,
+                            "value": "0"
+                        }
+                    ],
+                    "max": 1,
+                    "noValue": "0",
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "dark-red",
+                                "value": null
+                            },
+                            {
+                                "color": "dark-green",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 10,
+                "x": 0,
+                "y": 13
+            },
+            "id": 27,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "fields": "",
+                    "values": false
+                }
+            },
+            "pluginVersion": "7.0.3",
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "ecdsa",
+                    "value": "ecdsa"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "label_replace(eth_connectivity{job=\"clients\", instance=~\".*$APP_TYPE.*\"}, \"node\", \"$1-$2\", \"instance\", \"$REGEXP_INSTANCE_TO_NODE\")",
+                    "format": "time_series",
+                    "instant": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{node}}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "ETH Connectivity",
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null
+                    },
+                    "displayName": "Count",
+                    "mappings": [],
+                    "min": 0,
+                    "noValue": "0",
+                    "thresholds": {
+                        "mode": "percentage",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "orange",
+                                "value": 0
+                            },
+                            {
+                                "color": "light-yellow",
+                                "value": 20
+                            },
+                            {
+                                "color": "green",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 10,
+                "y": 13
+            },
+            "id": 16,
+            "options": {
+                "displayMode": "basic",
+                "orientation": "horizontal",
+                "reduceOptions": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showUnfilled": true
+            },
+            "pluginVersion": "7.0.3",
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "ecdsa",
+                    "value": "ecdsa"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "label_replace(connected_peers_count{instance=~\".*$APP_TYPE.*\"}, \"node\", \"$1-$2\", \"instance\", \"$REGEXP_INSTANCE_TO_NODE\")",
+                    "format": "time_series",
+                    "instant": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{node}}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Connected Peers Count",
+            "transparent": true,
+            "type": "bargauge"
+        },
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 20
+            },
+            "id": 28,
+            "panels": [],
+            "repeat": null,
+            "repeatIteration": 1623183150002,
+            "repeatPanelId": 18,
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "core",
+                    "value": "core"
+                }
+            },
+            "title": "$APP_TYPE",
+            "type": "row"
+        },
+        {
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null
+                    },
+                    "mappings": [
+                        {
+                            "from": "",
+                            "id": 0,
+                            "operator": "",
+                            "text": "up",
+                            "to": "",
+                            "type": 1,
+                            "value": "1"
+                        },
+                        {
+                            "from": "",
+                            "id": 1,
+                            "operator": "",
+                            "text": "down",
+                            "to": "",
+                            "type": 1,
+                            "value": "0"
+                        }
+                    ],
+                    "max": 1,
+                    "noValue": "0",
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "dark-red",
+                                "value": null
+                            },
+                            {
+                                "color": "dark-green",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 10,
+                "x": 0,
+                "y": 21
+            },
+            "id": 29,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "fields": "",
+                    "values": false
+                }
+            },
+            "pluginVersion": "7.0.3",
+            "repeatIteration": 1623183150002,
+            "repeatPanelId": 9,
+            "repeatedByRow": true,
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "core",
+                    "value": "core"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "label_replace(up{job=\"clients\", instance=~\".*$APP_TYPE.*\"}, \"node\", \"$1-$2\", \"instance\", \"$REGEXP_INSTANCE_TO_NODE\")",
+                    "format": "time_series",
+                    "instant": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{node}}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Client Health",
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null
+                    },
+                    "displayName": "Count",
+                    "mappings": [],
+                    "min": 0,
+                    "noValue": "0",
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "orange",
+                                "value": 0
+                            },
+                            {
+                                "color": "light-yellow",
+                                "value": 3
+                            },
+                            {
+                                "color": "green",
+                                "value": 5
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 10,
+                "y": 21
+            },
+            "id": 30,
+            "options": {
+                "displayMode": "basic",
+                "orientation": "horizontal",
+                "reduceOptions": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showUnfilled": true
+            },
+            "pluginVersion": "7.0.3",
+            "repeatIteration": 1623183150002,
+            "repeatPanelId": 15,
+            "repeatedByRow": true,
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "core",
+                    "value": "core"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "label_replace(connected_bootstrap_count{instance=~\".*$APP_TYPE.*\"}, \"node\", \"$1-$2\", \"instance\", \"$REGEXP_INSTANCE_TO_NODE\")",
+                    "format": "time_series",
+                    "instant": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{node}}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Connected Bootstraps Count",
+            "transparent": true,
+            "type": "bargauge"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 0,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 13,
+                "w": 8,
+                "x": 16,
+                "y": 21
+            },
+            "hiddenSeries": false,
+            "id": 31,
+            "legend": {
+                "alignAsTable": false,
+                "avg": false,
+                "current": false,
+                "hideEmpty": false,
+                "max": false,
+                "min": false,
+                "rightSide": false,
+                "show": false,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null as zero",
+            "options": {
+                "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "repeatIteration": 1623183150002,
+            "repeatPanelId": 21,
+            "repeatedByRow": true,
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "core",
+                    "value": "core"
+                }
+            },
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": true,
+            "targets": [
+                {
+                    "expr": "label_replace(connected_peers_count{instance=~\".*$APP_TYPE.*\"}, \"node\", \"$1-$2\", \"instance\", \"$REGEXP_INSTANCE_TO_NODE\")",
+                    "interval": "",
+                    "legendFormat": "{{node}}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Connected Peers History",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null
+                    },
+                    "mappings": [
+                        {
+                            "from": "",
+                            "id": 0,
+                            "operator": "",
+                            "text": "up",
+                            "to": "",
+                            "type": 1,
+                            "value": "1"
+                        },
+                        {
+                            "from": "",
+                            "id": 1,
+                            "operator": "",
+                            "text": "down",
+                            "to": "",
+                            "type": 1,
+                            "value": "0"
+                        }
+                    ],
+                    "max": 1,
+                    "noValue": "0",
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "dark-red",
+                                "value": null
+                            },
+                            {
+                                "color": "dark-green",
+                                "value": 1
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 10,
+                "x": 0,
+                "y": 28
+            },
+            "id": 32,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "fields": "",
+                    "values": false
+                }
+            },
+            "pluginVersion": "7.0.3",
+            "repeatIteration": 1623183150002,
+            "repeatPanelId": 27,
+            "repeatedByRow": true,
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "core",
+                    "value": "core"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "label_replace(eth_connectivity{job=\"clients\", instance=~\".*$APP_TYPE.*\"}, \"node\", \"$1-$2\", \"instance\", \"$REGEXP_INSTANCE_TO_NODE\")",
+                    "format": "time_series",
+                    "instant": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{node}}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "ETH Connectivity",
+            "transparent": true,
+            "type": "stat"
+        },
+        {
+            "datasource": "Prometheus",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null
+                    },
+                    "displayName": "Count",
+                    "mappings": [],
+                    "min": 0,
+                    "noValue": "0",
+                    "thresholds": {
+                        "mode": "percentage",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "orange",
+                                "value": 0
+                            },
+                            {
+                                "color": "light-yellow",
+                                "value": 20
+                            },
+                            {
+                                "color": "green",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 10,
+                "y": 28
+            },
+            "id": 33,
+            "options": {
+                "displayMode": "basic",
+                "orientation": "horizontal",
+                "reduceOptions": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showUnfilled": true
+            },
+            "pluginVersion": "7.0.3",
+            "repeatIteration": 1623183150002,
+            "repeatPanelId": 16,
+            "repeatedByRow": true,
+            "scopedVars": {
+                "APP_TYPE": {
+                    "selected": false,
+                    "text": "core",
+                    "value": "core"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "label_replace(connected_peers_count{instance=~\".*$APP_TYPE.*\"}, \"node\", \"$1-$2\", \"instance\", \"$REGEXP_INSTANCE_TO_NODE\")",
+                    "format": "time_series",
+                    "instant": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{node}}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Connected Peers Count",
+            "transparent": true,
+            "type": "bargauge"
+        }
+    ],
+    "refresh": "30s",
+    "schemaVersion": 25,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+        "list": [
+            {
+                "current": {
+                    "selected": false,
+                    "text": "(.*?\\\\..*?)\\\\..*:[0-9]{2}(.*)",
+                    "value": "(.*?\\\\..*?)\\\\..*:[0-9]{2}(.*)"
+                },
+                "hide": 2,
+                "label": "Regexp used to transform instance label to a node name",
+                "name": "REGEXP_INSTANCE_TO_NODE",
+                "options": [
+                    {
+                        "selected": true,
+                        "text": "(.*?\\\\..*?)\\\\..*:[0-9]{2}(.*)",
+                        "value": "(.*?\\\\..*?)\\\\..*:[0-9]{2}(.*)"
+                    }
+                ],
+                "query": "(.*?\\\\..*?)\\\\..*:[0-9]{2}(.*)",
+                "skipUrlSync": false,
+                "type": "constant"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "^0x([a-zA-Z0-9]{6}).*$",
+                    "value": "^0x([a-zA-Z0-9]{6}).*$"
+                },
+                "hide": 2,
+                "label": "Regexp used to transform instance label to a node name",
+                "name": "REGEXP_ADDRESS_TO_ID",
+                "options": [
+                    {
+                        "selected": true,
+                        "text": "^0x([a-zA-Z0-9]{6}).*$",
+                        "value": "^0x([a-zA-Z0-9]{6}).*$"
+                    }
+                ],
+                "query": "^0x([a-zA-Z0-9]{6}).*$",
+                "skipUrlSync": false,
+                "type": "constant"
+            },
+            {
+                "allValue": "",
+                "current": {
+                    "selected": true,
+                    "text": "All",
+                    "value": "$__all"
+                },
+                "hide": 0,
+                "includeAll": true,
+                "label": null,
+                "multi": false,
+                "name": "APP_TYPE",
+                "options": [
+                    {
+                        "selected": true,
+                        "text": "All",
+                        "value": "$__all"
+                    },
+                    {
+                        "selected": false,
+                        "text": "ecdsa",
+                        "value": "ecdsa"
+                    },
+                    {
+                        "selected": false,
+                        "text": "core",
+                        "value": "core"
+                    }
+                ],
+                "query": "ecdsa,core",
+                "queryValue": "",
+                "skipUrlSync": false,
+                "type": "custom"
+            }
+        ]
+    },
+    "time": {
+        "from": "now-24h",
+        "to": "now"
+    },
+    "timepicker": {
+        "refresh_intervals": [
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+        ]
+    },
+    "timezone": "utc",
+    "title": "Keep Clients Summary",
+    "uid": "3r-BohOMz",
+    "version": 67
+}

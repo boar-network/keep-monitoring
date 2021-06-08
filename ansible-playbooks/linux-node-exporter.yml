@@ -1,0 +1,42 @@
+- name: Install Linux node exporter
+  hosts: all
+  tasks:
+  - name: Download node exporter archive
+    get_url:
+      url: https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
+      dest: ~/
+
+  - name: Extract node exporter
+    command: tar xvfz node_exporter-1.0.1.linux-amd64.tar.gz
+
+  - name: Move node exporter binary
+    command: sudo mv ./node_exporter-1.0.1.linux-amd64/node_exporter /usr/bin/node_exporter
+
+  - name: Cleanup
+    command: rm node_exporter-1.0.1.linux-amd64.tar.gz && rm -rf node_exporter-1.0.1.linux-amd64
+
+  - name: Create node exporter service file
+    become: yes
+    copy:
+      dest: "/etc/systemd/system/node-exporter.service"
+      content: |
+       [Unit]
+       Description="Node Exporter"
+       Documentation=https://github.com/prometheus/node_exporter
+       Wants=network-online.target
+       After=network-online.target
+
+       [Service]
+       User=keep
+       Group=keep
+
+       ExecStart=/usr/bin/node_exporter --web.listen-address=:9602
+
+       Restart=always
+
+       [Install]
+       WantedBy=multi-user.target
+
+  - name: Run node exporter service
+    command: sudo service node-exporter start
+
