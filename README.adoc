@@ -14,7 +14,7 @@ Opsgenie mobile client of an on-call engineer, Ethereum connectivity health chec
 and operator account balances monitoring.
 
 This repository does not contain any tools for key shares backups, operator key
-backup, secure access to them, cluster relocation, and other infrastructure-level
+backups, secure access to them, cluster relocation, and other infrastructure-level
 features that should be supported by a production-grade deployment.
 
 The tools support monitoring of:
@@ -229,7 +229,7 @@ send them sample parsing configuration shared in the link:.logs/config/logzio-ke
 After the logs are parsed correctly you can start configuring link:https://docs.logz.io/user-guide/alerts[Alerts].
 We recommend you create: 
 
-- `severe` severity alerts for any `CRITICAL`, `DPANIC`, `PANIC` or FATAL` level messages,
+- `severe` severity alerts for any `CRITICAL`, `DPANIC`, `PANIC` or `FATAL` level messages,
 
 - `high` severity alerts for any `ERROR` level messages,
 
@@ -247,5 +247,5 @@ endif::[]
 team with great
 contributions from 
 link:https://github.com/lukasz-zimnoch[lukasz-zimnoch], 
-link:https://github.com/nkuba[nkuba] and
+link:https://github.com/nkuba[nkuba], and
 link:https://github.com/pdyraga[pdyraga].
