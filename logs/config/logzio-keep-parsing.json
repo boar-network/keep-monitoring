@@ -1,0 +1,75 @@
+{
+  "steps": [
+    {
+      "grok": {
+        "config": {
+          "field": "message",
+          "overwrite": [
+            "message"
+          ],
+          "patterns": [
+            "^%{TIMESTAMP_ISO8601:timestamp}\\s+%{LOGLEVEL:level}\\s+%{DATA:module}\\s+%{GREEDYDATA:message}"
+          ]
+        },
+        "onSuccess": [
+          {
+            "if": {
+              "condition": {
+                "hasValue": {
+                  "field": "event.timezone",
+                  "possibleValues": [
+                    "+00:00"
+                  ]
+                }
+              },
+              "then": [
+                {
+                  "date": {
+                    "config": {
+                      "field": "timestamp",
+                      "formats": [
+                        "ISO8601"
+                      ],
+                      "timeZone": "UTC"
+                    },
+                    "onSuccess": [
+                      {
+                        "removeField": {
+                          "config": {
+                            "path": "timestamp"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "else": [
+                {
+                  "date": {
+                    "config": {
+                      "field": "timestamp",
+                      "formats": [
+                        "ISO8601"
+                      ],
+                      "timeZone": "Europe/Warsaw"
+                    },
+                    "onSuccess": [
+                      {
+                        "removeField": {
+                          "config": {
+                            "path": "timestamp"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
