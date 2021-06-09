@@ -8,12 +8,12 @@ and
 https://github.com/keep-network/keep-ecdsa[keep-ecdsa]
 clients of https://keep.network[Keep Network].
 
-This is a complete solution for real-time monitoring health of Keep clients and
+This is a complete solution for real-time health monitoring of Keep clients and
 systems they are running on, including client and system-level alerts pushed to
 Opsgenie mobile client of an on-call engineer, Ethereum connectivity health checks,
 and operator account balances monitoring.
 
-This repository does not contain any tools for key shares backups, operator key
+IMPORTANT: This repository does not contain any tools for key shares backups, operator key
 backups, secure access to them, cluster relocation, and other infrastructure-level
 features that should be supported by a production-grade deployment.
 
@@ -67,46 +67,44 @@ to the monitoring system.
 
 Several types of target endpoints can be handled by the monitoring system:
 
-- Client-level metrics endpoint
-+
-To expose client-level metrics endpoint of `keep-core` or `keep-ecdsa`
-just make sure the `Metrics.Port` config property is set. Everything else
-works out of the box.
-+
-For further details, here is the list of pull requests introducing
-client-level metrics:
-+
-// TODO: Update links to keep documentation once available.
-** https://github.com/keep-network/keep-common/pull/40[Metrics core package in keep-common]
-** https://github.com/keep-network/keep-core/pull/1850[Metrics for keep-core]
-** https://github.com/keep-network/keep-ecdsa/pull/479[Metrics for keep-ecdsa]
-- System-level metrics endpoint
-+
+==== Client-level metrics endpoint
+
+To expose client-level metrics endpoint of `keep-core` or `keep-ecdsa` clients
+just make sure the `Metrics.Port` config property is set for each of them.
+Everything else works out of the box.
+
+For further details, here is the list of of references describing Keep clients
+monitoring and diagnostics:
+
+** link:https://github.com/keep-network/keep-core/blob/master/docs/monitoring-and-alerting.adoc[Monitoring and Alerting for Keep Nodes guidelines]
+** link:https://github.com/keep-network/keep-core/blob/master/docs/run-random-beacon.adoc#metrics[keep-core client metrics documentation]
+** link:https://github.com/keep-network/keep-core/blob/master/docs/run-random-beacon.adoc#diagnostics[keep-core client diagnostics documentation]
+** link:https://github.com/keep-network/keep-ecdsa/blob/master/docs/run-keep-ecdsa.adoc#metrics[keep-ecdsa client metrics documentation]
+** link:https://github.com/keep-network/keep-ecdsa/blob/master/docs/run-keep-ecdsa.adoc#diagnostics[keep-ecdsa client diagnostics documentation]
+
+==== System-level metrics endpoint
+
 Exposing system-level metrics is a little bit harder as it depends on the
 platform.
-+
+
 For *NIX systems you should use the
 https://github.com/prometheus/node_exporter[Node Exporter] tool. Installation
 instructions are described https://prometheus.io/docs/guides/node-exporter[here].
-+
+
 You can also use the predefined Ansible playbook to install the node exporter
 automatically on the target machine and expose it on port `9602` by running:
-+
+
 ```
 ansible-playbook -i <user>@<machine>, -e "ansible_port=<ssh_port>" ./ansible-playbooks/linux-node-exporter.yml
 ```
-- Accounts balances endpoint
-+
-The accounts balance monitoring component is working out of the box.
 
-=== Ethereum Connection
+==== Ethereum accounts balances endpoint
 
 Ethereum accounts monitoring requires connection to Ethereum API. This can be Geth,
 Alchemy, Infura or any other service.
 
 Configure `GETH` variable with URL to the Ethereum API in `./balance-exporter/variables.env` file.
 (link:./balance-exporter/variables.env.SAMPLE)[Sample file])
-
 
 === Adding Targets To The Monitoring System
 
@@ -208,6 +206,9 @@ being you should configure a log exporter and aggregator of your choice to gathe
 the logs and define alerting rules.
 
 One of the possible solutions is using https://logz.io/[Logz.io].
+
+TIP: To make the Keep client log to a file configure `GOLOG_FILE` environment variable
+with a path to a file, e.g. `GOLOG_FILE=/var/log/keep/client.log`.
 
 === Logz.io
 
