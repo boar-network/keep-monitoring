@@ -5,90 +5,90 @@ groups:
             expr: up{job="clients"} == 0
             for: 1m
             annotations:
-                title: 'Client {{ $labels.instance }} is down'
-                description: 'Client has been down for more than 1 minute.'
+                title: "Client {{ $labels.instance }} is down"
+                description: "Client has been down for more than 1 minute."
             labels:
-                severity: 'critical'
+                severity: "critical"
           - alert: EthConnectivityDown
             expr: eth_connectivity{job="clients"} == 0
             for: 3m
             annotations:
-                title: 'Client {{ $labels.instance }} has no ethereum connectivity'
-                description: 'Client has lost connection with their ethereum node for more than 1 minute.'
+                title: "Client {{ $labels.instance }} has no ethereum connectivity"
+                description: "Client has lost connection with their ethereum node for more than 1 minute."
             labels:
-                severity: 'critical'
+                severity: "critical"
           - alert: LowConnectedPeersCount
             expr: connected_peers_count{job="clients"} < 5
             for: 5m
             annotations:
-                title: 'Client {{ $labels.instance }} has low connected peers count'
-                description: 'Connected peers count is less than 5 for more than 5 minutes.'
+                title: "Client {{ $labels.instance }} has low connected peers count"
+                description: "Connected peers count is less than 5 for more than 5 minutes."
             labels:
-                severity: 'warning'
+                severity: "warning"
           - alert: LowConnectedBootstrapCount
             expr: connected_bootstrap_count{job="clients"} < 2
             for: 5m
             annotations:
-                title: 'Client {{ $labels.instance }} has low connected bootstrap count'
-                description: 'Connected bootstrap count is less than 2 for more than 5 minutes.'
+                title: "Client {{ $labels.instance }} has low connected bootstrap count"
+                description: "Connected bootstrap count is less than 2 for more than 5 minutes."
             labels:
-                severity: 'warning'
+                severity: "warning"
           - alert: IncreasedErrorRate
             expr: avg(increase(keep_ecdsa_errors[10m])) by (job) > 10
             annotations:
-                title: 'Client {{ $labels.instance }} increased error rate'
-                description: 'Client is experience an increase in errors'
+                title: "Client {{ $labels.instance }} increased error rate"
+                description: "Client is experience an increase in errors"
             labels:
-                severity: 'critical'
+                severity: "critical"
     - name: Systems
       rules:
           - alert: SystemDown
             expr: up{job="systems"} == 0
             for: 1m
             annotations:
-                title: 'System {{ $labels.instance }} is down'
-                description: 'System has been down for more than 1 minute.'
+                title: "System {{ $labels.instance }} is down"
+                description: "System has been down for more than 1 minute."
             labels:
-                severity: 'critical'
+                severity: "critical"
           - alert: HighCpuUsage
             expr: (1 - avg(irate(node_cpu_seconds_total{job="systems",mode="idle"}[5m])) by (instance)) * 100 > 90
             for: 8m
             annotations:
-                title: 'System {{ $labels.instance }} has high CPU usage'
-                description: 'System CPU usage is higher than 90% for more than 5 minutes.'
+                title: "System {{ $labels.instance }} has high CPU usage"
+                description: "System CPU usage is higher than 90% for more than 5 minutes."
             labels:
-                severity: 'warning'
+                severity: "warning"
           - alert: HighMemoryUsage
             expr: 100 * (1 - ((avg_over_time(node_memory_MemFree_bytes{job="systems"}[5m]) + avg_over_time(node_memory_Cached_bytes{job="systems"}[5m]) + avg_over_time(node_memory_Buffers_bytes{job="systems"}[5m])) / avg_over_time(node_memory_MemTotal_bytes{job="systems"}[5m]))) > 90
             for: 5m
             annotations:
-                title: 'System {{ $labels.instance }} has high memory usage'
-                description: 'System memory usage is higher than 90% for more than 5 minutes.'
+                title: "System {{ $labels.instance }} has high memory usage"
+                description: "System memory usage is higher than 90% for more than 5 minutes."
             labels:
-                severity: 'warning'
+                severity: "warning"
           - alert: HighDiskSpaceUsage
             expr: 100 - ((node_filesystem_avail_bytes{job="systems",mountpoint="/",fstype!="rootfs"} * 100) / node_filesystem_size_bytes{job="systems",mountpoint="/",fstype!="rootfs"}) > 90
             for: 5m
             annotations:
-                title: 'System {{ $labels.instance }} has high disk space usage'
-                description: 'System disk space usage is higher than 90% for more than 5 minutes.'
+                title: "System {{ $labels.instance }} has high disk space usage"
+                description: "System disk space usage is higher than 90% for more than 5 minutes."
             labels:
-                severity: 'warning'
+                severity: "warning"
     - name: Balances
       rules:
           - alert: LowAccountBalance
             expr: eth_balance{job="balances",name!="sample-account-name"} < 1
             for: 5m
             annotations:
-                title: 'Balance of account {{ $labels.address }} is low'
-                description: 'Balance of account {{ $labels.address }} ({{ $labels.name }}) is less than 1 ETH for more than 5 minutes.'
+                title: "Balance of account {{ $labels.address }} is low"
+                description: "Balance of account {{ $labels.address }} ({{ $labels.name }}) is less than 1 ETH for more than 5 minutes."
             labels:
-                severity: 'warning'
+                severity: "warning"
           - alert: MonitoringLowAccountBalance
             expr: eth_balance{job="balances",name="sample-account-name"} < 0.05
             for: 5m
             annotations:
-                title: 'Balance of account {{ $labels.address }} is low'
-                description: 'Balance of account {{ $labels.address }} ({{ $labels.name }}) is less than 0.05 ETH for more than 5 minutes.'
+                title: "Balance of account {{ $labels.address }} is low"
+                description: "Balance of account {{ $labels.address }} ({{ $labels.name }}) is less than 0.05 ETH for more than 5 minutes."
             labels:
-                severity: 'warning'
+                severity: "warning"
